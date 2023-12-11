@@ -162,3 +162,57 @@ def largestPerimeter(nums):
 
 print(largestPerimeter([2,1,2]))
 print(largestPerimeter([1,2,1,10]))
+
+print("*"* 100)
+
+# Example 1
+try:
+    str = 'hello'
+    str[0] = 'm'
+    print(str)
+except TypeError:
+    print("Error")
+finally:
+    print('I happen regardless of any exceptions.')
+
+# Example 2
+try:
+    print(x)
+finally:
+    print('I happen regardless of any exceptions.')
+
+# Write your solution here.
+def print_list(list):
+    for ele in list:
+        print(ele)
+
+
+lst1 = [1, 2, 5, 1429]
+lst2 = ['this', 'list', 'is', 'being', 'printed']
+lst3 = ['there', 'are', 2, 'data', 'types', 'being', 'printed']
+lst4 = [[1, 2], ['hello', 'from', 'within']]
+
+print_list(lst1)        # 1 2 5 1429
+print_list(lst2)        # this list is being printed
+print_list(lst3)        # there are 2 data types being printed
+print_list(lst4)        # [1, 2] ['hello', 'from', 'within']
+
+
+def printstars():
+    print("*"*100)
+
+
+printstars()
+# Write your solution here.
+def check_membership(guest_name, guest_list):
+    return guest_name in guest_list
+
+
+
+guest_list = ["George", "Anthony", "Susan", "Tiffany"]
+print(check_membership("Sally", guest_list))        # False
+print(check_membership("Anthony", guest_list))      # True
+
+
+printstars()
+
