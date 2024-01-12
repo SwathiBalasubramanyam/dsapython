@@ -1,6 +1,10 @@
 
+class Person:
 
-a = "str"
+    def __init__(self, name):
+        self._name = name
 
-for idx, char in enumerate(a):
-    print(char, idx)
+
+
+p1 = Person("swathi")
+print(p1._name)

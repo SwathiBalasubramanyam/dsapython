@@ -1,17 +1,16 @@
-import json
 
-x = {
-  "name": "John",
-  "age": 30,
-  "married": True,
-  "divorced": False,
-  "children": ("Ann","Billy"),
-  "pets": None,
-  "cars": [
-    {"model": "BMW 230", "mpg": 27.5},
-    {"model": "Ford Edge", "mpg": 24.1}
-  ]
-}
 
-print(json.dumps(x))
-print(json.dumps(x, indent=4, sort_keys=True))
+def some_func(given_str, cmp_str):
+  given_cmp_str = cmp_str
+
+  num_rotations = 0
+
+  if given_str == cmp_str:
+    return True
+
+  if num_rotations
+
+
+
+
+print(some_func("abcd", "dabcd"))
