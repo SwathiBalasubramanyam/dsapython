@@ -37,3 +37,5 @@ class Solution:
         return not my_stack
 
 print(Solution().isValid("()"))
+
+
