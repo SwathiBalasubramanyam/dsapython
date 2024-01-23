@@ -95,3 +95,154 @@ def findWords(words):
             selected_words.append(word)
 
     return selected_words
+
+#  Leetcode 9
+def isPalindrome(x):
+    start_num = x
+    end_num = 0
+    while x > 0:
+        rem = x % 10
+        x //= 10
+        end_num = (end_num * 10) + rem
+    
+    return start_num == end_num
+
+#  Leetcode 13
+def romanToInt(s):
+
+    # https://leetcode.com/problems/roman-to-integer/description/
+
+    symbol_val = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
+    
+    i = 0
+    total_value = 0
+    while i < len(s):
+        char = s[i]
+        curr_val = symbol_val[char]
+        sub_total = curr_val
+        
+        while (i+1) < len(s) and symbol_val[s[i+1]] > curr_val:
+            sub_total = symbol_val[s[i+1]] - sub_total
+            i += 1
+        total_value += sub_total
+        i += 1
+
+    return total_value
+
+#  Leetcode 14
+def longestCommonPrefix(strs):
+    # prefix = strs[0]
+
+    # prefix_in_all = False
+
+    # while prefix and not prefix_in_all:
+    #     prefix_in_all = True
+    #     for ele in strs[1:]:
+    #         if prefix not in ele:
+    #             prefix_in_all = False
+    #             prefix = prefix[:-1]
+    #             break
+
+
+    # return prefix
+
+    strs.sort()
+    prefix = ""
+    i = 0
+    while i < len(strs[0]):
+        prefix += strs[0][i]
+        for word in strs:
+            if not word.startswith(prefix):
+                return prefix[0:-1]
+        i += 1
+    return prefix
+
+#  Leetcode 20
+def isValidParenthesis(s):
+        
+    close_to_open = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+    }
+
+    my_stack = []
+    for char in s:
+        if char in close_to_open:
+            if not my_stack or close_to_open[char] != my_stack[-1]:
+                return False
+            my_stack.pop()
+        else:
+            my_stack.append(char)
+
+    return not my_stack 
+
+def isValidParenthesis(s):
+    possible_combos = ["()", "{}", "[]"]
+    replaceable = True
+
+    while replaceable and s:
+        replaceable = False
+        for combo in possible_combos:
+            if combo in s:
+                replaceable = True
+                s = s.replace(combo, "")
+
+    return not s
+
+#  Leetcode 21
+# https://leetcode.com/problems/merge-two-sorted-lists/description/
+def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        head = ListNode()
+        tail = head
+
+        while list1 and list2:
+            if list1.val <= list2.val:
+                tail.next = list1
+                tail = list1
+                list1 = list1.next
+            else:
+                tail.next = list2
+                tail = list2
+                list2 = list2.next
+        
+        if list1:
+            tail.next = list1
+
+        if list2:
+            tail.next = list2
+
+#  Leetcode 26
+# https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+def removeDuplicates(self, nums: List[int]) -> int:
+    seen_nums = set()
+
+    for idx, num in enumerate(nums):
+        if num in seen_nums:
+            nums[idx] = "_"
+        else:
+            seen_nums.add(num)
+
+    nums = list(seen_nums) + ["_" for i in range(len(nums) - len(seen_nums))]
+
+    return len(seen_nums)
+
+# Leetcode 27
+# https://leetcode.com/problems/remove-element/
+def removeElement(self, nums: List[int], val: int) -> int:
+    replaced_val = 0
+    for idx, num in enumerate(nums):
+        if nums[idx] == val:
+            replaced_val += 1
+            nums = nums[:idx] + nums[idx+1:] + ['_']
+            print(nums)
+    return len(nums) - replaced_val
+
