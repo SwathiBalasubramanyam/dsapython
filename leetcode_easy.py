@@ -246,3 +246,23 @@ def removeElement(self, nums: List[int], val: int) -> int:
             print(nums)
     return len(nums) - replaced_val
 
+#  Leetcode 1089
+# https://leetcode.com/problems/duplicate-zeros/description/
+def duplicateZeros(self, arr: List[int]) -> None:
+        """
+        Do not return anything, modify arr in-place instead.
+        """
+        
+        i = 0
+        while i < len(arr):
+
+            if arr[i] != 0:
+                i += 1
+                continue
+            
+            last_num = 0
+            for j in range(i+1, len(arr)):
+                arr[j], last_num = last_num, arr[j]
+
+            i += 2
+
