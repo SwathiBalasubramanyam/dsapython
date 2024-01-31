@@ -297,3 +297,45 @@ def generateMatrix(self, n: int) -> List[List[int]]:
 
         return matrix
 
+# Leetcode 79
+# https://leetcode.com/problems/word-search/
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        from collections import Counter, defaultdict, deque
+
+        ROWS = len(board) 
+        COLS  = len(board[0])
+        DIRECTIONS = [(0,1), (1,0), (-1, 0), (0, -1)]
+
+        word_char_count = Counter(word)
+        board_char_count = defaultdict(int)
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                board_char_count[board[r][c]] += 1
+
+        for char, cnt in word_char_count.items():
+            if board_char_count[char] < cnt:
+                return False
+
+        def _get_neighbors(cell, my_queue):
+            for dir in DIRECTIONS:
+                new_row, new_col = cell[0] + dir[0], cell[1] + dir[1]
+                if 0 <= new_row < ROWS and 0 <= new_col < COLS:
+                    my_queue.append((new_row, new_col))
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                if not word.startswith(board[r][c]):
+                    continue
+
+                visited = set()
+                res_word = board[r][c]
+                my_stack = [(r,c)]
+
+                while my_stack:
+                    last_ele = my_stack.pop()
+
+
+
+
