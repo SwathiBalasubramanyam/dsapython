@@ -266,3 +266,34 @@ def duplicateZeros(self, arr: List[int]) -> None:
 
             i += 2
 
+
+# Leetcode 59
+# https://leetcode.com/problems/spiral-matrix-ii/description/
+def generateMatrix(self, n: int) -> List[List[int]]:
+        DIRECTIONS = [(0,1), (1,0), (0, -1), (-1, 0)]
+        sub_arr_cnt = [n]
+        for i in range(n-1, 0, -1):
+            sub_arr_cnt += [i, i]
+
+        value = 1
+        r, c = 0, 0
+        d = 0
+
+        matrix = [[0 for _ in range(n)] for _ in range(n)]
+        
+        while value <= n * n:
+
+            matrix[r][c] = value
+            value += 1
+            sub_arr_cnt[0] -= 1
+
+            if sub_arr_cnt[0] == 0:
+                sub_arr_cnt = sub_arr_cnt[1:]
+                d = (d+1) % 4
+
+            dr, dc = DIRECTIONS[d]
+            r += dr
+            c += dc
+
+        return matrix
+
