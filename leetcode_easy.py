@@ -336,6 +336,22 @@ class Solution:
                 while my_stack:
                     last_ele = my_stack.pop()
 
+#  leetcode 43
+# https://leetcode.com/problems/multiply-strings/
 
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        
+        total = 0
+        len_num1 = len(num1) - 1
+        len_num2 = len(num2) - 1
+
+        for idx, digit1 in enumerate(num1):
+            int_digit1 = int(digit1)
+            for jdx, digit2 in enumerate(num2):
+                int_digit2 = int(digit2)
+                total += (int_digit1 * (10 ** (len_num1 - idx))) * (int_digit2 * (10 ** (len_num2 - jdx)))
+        
+        return str(total)
 
 
