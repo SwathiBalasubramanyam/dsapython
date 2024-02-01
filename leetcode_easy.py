@@ -365,3 +365,24 @@ class Solution:
         return str(total)
 
 
+# Leetcode 704
+# https://leetcode.com/problems/binary-search/description/
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        if not nums:
+            return -1
+
+        mid = len(nums) // 2
+        
+        if target > nums[mid]:
+            idx = self.search(nums[mid+1:], target)
+
+            if idx == -1:
+                return -1
+            return mid + idx + 1
+
+        elif target < nums[mid]:
+            return self.search(nums[:mid], target)
+        else:
+            return mid
+        
