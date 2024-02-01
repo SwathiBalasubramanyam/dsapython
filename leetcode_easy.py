@@ -509,4 +509,35 @@ class Solution:
         else:
             return mid
 
+#  Leetcode 88
+# https://leetcode.com/problems/merge-sorted-array/
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+
+        if not m:
+            nums1[:] = nums2[:]
+            return
+
+        if not n:
+            return
+
+        for idx in range(m, len(nums1)):
+            nums1[idx] = "_"
+        
+        nums1_idx, nums2_idx = 0, 0
+
+        while nums2_idx < n:
+            if nums1[nums1_idx] == "_":
+                nums1[nums1_idx] = nums2[nums2_idx]
+                nums2_idx +=1
+            elif nums1[nums1_idx] > nums2[nums2_idx]:
+                nums1[:] = nums1[:nums1_idx] + [nums2[nums2_idx]] + nums1[nums1_idx:-1]
+                nums2_idx +=1
+                
+            nums1_idx += 1
+            
+
         
