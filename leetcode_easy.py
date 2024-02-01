@@ -437,3 +437,39 @@ class Solution:
             res_arr[jdx:] = [nums[idx]] + res_arr[jdx:]
 
         return res_arr[:len(nums)]
+
+# leetcode 1556
+# https://leetcode.com/problems/thousand-separator/description/
+class Solution:
+    def thousandSeparator(self, n: int) -> str:
+        str_int = str(n)[::-1]
+        new_str = ""
+
+        for idx in range(0, len(str_int), 3):
+            new_str += str_int[idx:idx+3]
+            new_str += "."
+
+        new_str = new_str[::-1]
+        if new_str[0] == ".":
+            return new_str[1:]
+        return new_str
+        
+# Leetcode 26
+# https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        seen_nums = set()
+        idx = 0
+        while idx < len(nums):
+
+            if nums[idx] == "_":
+                break
+        
+            if nums[idx] in seen_nums:
+                nums.remove(nums[idx])
+                nums.append("_")
+            else:
+                seen_nums.add(nums[idx])
+                idx += 1
+
+        return len(seen_nums)
