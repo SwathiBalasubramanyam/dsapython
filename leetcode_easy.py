@@ -418,10 +418,22 @@ class Solution:
         for char in s[1:]:
             if char == prev_char:
                 currnt_char_cnt += 1
-                print(currnt_char_cnt)
             else:
                 max_pwr = max(max_pwr, currnt_char_cnt)
                 currnt_char_cnt = 1
                 prev_char = char
 
         return max(max_pwr, currnt_char_cnt)
+
+# leetcode 1389
+# https://leetcode.com/problems/create-target-array-in-the-given-order/description/
+class Solution:
+    def createTargetArray(self, nums: List[int], index: List[int]) -> List[int]:
+        
+        res_arr = [0 for i in range(len(nums))]
+
+        for idx in range(len(nums)):
+            jdx = index[idx]
+            res_arr[jdx:] = [nums[idx]] + res_arr[jdx:]
+
+        return res_arr[:len(nums)]
