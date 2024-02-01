@@ -386,3 +386,22 @@ class Solution:
         else:
             return mid
         
+#  Leetcode 1909
+# https://leetcode.com/problems/remove-one-element-to-make-the-array-strictly-increasing/description/
+class Solution:
+    def canBeIncreasing(self, nums: List[int]) -> bool:
+
+        for idx in range(len(nums)):
+
+            all_increasing = True
+            new_nums = nums[:idx] + nums[idx+1:]
+
+            for jdx in range(1, len(new_nums)):
+                if new_nums[jdx-1] >= new_nums[jdx]:
+                    all_increasing = False
+                    break
+
+            if all_increasing:
+                return True
+
+        return False
