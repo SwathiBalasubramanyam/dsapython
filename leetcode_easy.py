@@ -405,3 +405,23 @@ class Solution:
                 return True
 
         return False
+
+# Leetcode 1446
+# https://leetcode.com/problems/consecutive-characters/description/
+class Solution:
+    def maxPower(self, s: str) -> int:
+        
+        prev_char = s[0]
+        max_pwr = 1
+        currnt_char_cnt = 1
+
+        for char in s[1:]:
+            if char == prev_char:
+                currnt_char_cnt += 1
+                print(currnt_char_cnt)
+            else:
+                max_pwr = max(max_pwr, currnt_char_cnt)
+                currnt_char_cnt = 1
+                prev_char = char
+
+        return max(max_pwr, currnt_char_cnt)
