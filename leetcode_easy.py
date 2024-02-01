@@ -473,3 +473,40 @@ class Solution:
                 idx += 1
 
         return len(seen_nums)
+
+#  Leetcode 2016
+# https://leetcode.com/problems/maximum-difference-between-increasing-elements/description/
+class Solution:
+    def maximumDifference(self, nums: List[int]) -> int:
+
+        maxDiff = -1
+        for i in range(len(nums)):
+
+            for j in range(i+1, len(nums)):
+
+                if i < j and nums[i] < nums[j]:
+                    maxDiff = max(nums[j] - nums[i], maxDiff)
+
+        return maxDiff
+        
+#  Leetcode 35
+# https://leetcode.com/problems/search-insert-position/submissions/1163381179/
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        if target < nums[0]:
+            return 0
+        if target > nums[-1]:
+            return len(nums)
+
+        mid = len(nums) // 2
+
+        if target < nums[mid]:
+            return self.searchInsert(nums[:mid], target)
+
+        elif target > nums[mid]:
+            return mid + self.searchInsert(nums[mid+1:], target) + 1
+
+        else:
+            return mid
+
+        
