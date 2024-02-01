@@ -318,23 +318,33 @@ class Solution:
             if board_char_count[char] < cnt:
                 return False
 
-        def _get_neighbors(cell, my_queue):
+        def _get_neighbors(cell, visited):
+            valid_dirs = []
             for dir in DIRECTIONS:
                 new_row, new_col = cell[0] + dir[0], cell[1] + dir[1]
-                if 0 <= new_row < ROWS and 0 <= new_col < COLS:
-                    my_queue.append((new_row, new_col))
+                if 0 <= new_row < ROWS and 0 <= new_col < COLS and (new_row, new_col) not in visited:
+                    valid_dirs.append((new_row, new_col))
+
+            return valid_dirs
 
         for r in range(ROWS):
             for c in range(COLS):
-                if not word.startswith(board[r][c]):
-                    continue
-
                 visited = set()
-                res_word = board[r][c]
                 my_stack = [(r,c)]
-
+                word_sofar = ""
                 while my_stack:
                     last_ele = my_stack.pop()
+                    new_word = word_sofar + board[last_ele[0]][last_ele[1]]
+                    if not word.startswith(new_word):
+                        continue
+                    word_sofar += board[last_ele[0]][last_ele[1]]
+
+                    if word_sofar == word:
+                        return True
+                        
+                    visited.add((r,c))
+                    my_stack += _get_neighbors(last_ele, visited)
+        return False
 
 #  leetcode 43
 # https://leetcode.com/problems/multiply-strings/
