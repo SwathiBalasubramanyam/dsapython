@@ -539,5 +539,70 @@ class Solution:
                 
             nums1_idx += 1
             
+# Leetcode 100
+# https://leetcode.com/problems/same-tree/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q:
+            return True
 
+        if (not p and q) or (not q and p):
+            return False
+
+        return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+
+# LeetCode 101
+# https://leetcode.com/problems/symmetric-tree/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        
+        def is_mirror(left, right):
+
+            if not left and not right:
+                return True
+
+            if not left or not right or left.val != right.val:
+                return False
+
+            return is_mirror(left.left, right.right) and is_mirror(left.right, right.left)
+
+        return is_mirror(root.left, root.right)
+
+# leetcode 104
+# https://leetcode.com/problems/maximum-depth-of-binary-tree/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+            
+        my_stack = [(root, 1)]
+        max_depth = 0
+        while my_stack:
+            curr_node, curr_depth = my_stack.pop()
+            max_depth = max(curr_depth, max_depth)
+            if curr_node.left:
+                my_stack.append((curr_node.left, curr_depth+1))
+            if curr_node.right:
+                my_stack.append((curr_node.right, curr_depth+1))
+
+        return max_depth
+            
         
