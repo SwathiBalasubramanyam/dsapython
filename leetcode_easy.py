@@ -648,3 +648,19 @@ class Solution:
                     res_cnt += 1
 
         return res_cnt
+
+
+#  leetcode 2057
+# https://leetcode.com/problems/smallest-index-with-equal-value/submissions/1167173627/
+class Solution:
+    def smallestEqual(self, nums: List[int]) -> int:
+        
+        min_idx = float("inf")
+
+        for idx in range(len(nums)):
+            if idx % 10 == nums[idx]:
+                min_idx = min(min_idx, idx)
+
+        if min_idx == float("inf"):
+            return -1
+        return min_idx
