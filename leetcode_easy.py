@@ -636,3 +636,15 @@ class Solution:
         largest  = max(nums)
 
         return count([num for num in nums if smallest < num < largest])
+
+#  leetcode 2006
+# https://leetcode.com/problems/count-number-of-pairs-with-absolute-difference-k/
+class Solution:
+    def countKDifference(self, nums: List[int], k: int) -> int:
+        res_cnt = 0
+        for idx in range(len(nums)):
+            for jdx in range(idx, len(nums)):
+                if abs(nums[idx] - nums[jdx]) == k:
+                    res_cnt += 1
+
+        return res_cnt
