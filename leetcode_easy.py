@@ -690,3 +690,33 @@ class Solution:
 
         return num == rev_num(rev_num(num))
         
+
+# leetcode 2164
+# https://leetcode.com/problems/sort-even-and-odd-indices-independently/description/
+class Solution:
+    def sortEvenOdd(self, nums: List[int]) -> List[int]:
+        odd_values = []
+        even_values = []
+
+        for idx in range(len(nums)):
+            if idx%2 == 0:
+                even_values.append(nums[idx])
+            else:
+                odd_values.append(nums[idx])
+
+        odd_values.sort(reverse=True)
+        even_values.sort()
+
+        res_arr = [0 for _ in range(len(nums))]
+        
+        for idx in range(len(nums)):
+            if idx%2 == 0:
+                res_arr[idx] = even_values[0]
+                even_values = even_values[1:]
+            else:
+                res_arr[idx] = odd_values[0]
+                odd_values = odd_values[1:]
+
+        return res_arr
+
+        
