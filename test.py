@@ -1,10 +1,16 @@
+class Solution:
+    def sumOfSquares(self, nums):
 
-class Person:
+        nums_len = len(nums)
 
-    def __init__(self, name):
-        self._name = name
+        def filt_func(el):
+            print(nums_len%el)
+            if nums_len%el == 0:
+                return el*el
+            return 0
 
+        return sum(map(filt_func, nums))
+        
 
+print(Solution().sumOfSquares([2,7,1,19,18,3]))
 
-p1 = Person("swathi")
-print(p1._name)

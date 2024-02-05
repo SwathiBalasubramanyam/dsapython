@@ -606,3 +606,33 @@ class Solution:
         return max_depth
             
         
+
+#  leetcode 2148
+# https://leetcode.com/problems/count-elements-with-strictly-smaller-and-greater-elements/description/
+class Solution:
+    def countElements(self, nums: List[int]) -> int:
+        
+        res_cnt = 0
+        for idx in range(len(nums)):
+            found_low, found_high = False, False
+            for jdx in range(len(nums)):
+                if idx == jdx:
+                    continue
+
+                if nums[jdx] < nums[idx]:
+                    found_low = True
+
+                if nums[jdx] > nums[idx]:
+                    found_high = True
+
+                if found_low and found_high:
+                    res_cnt += 1
+                    break
+                    
+        return res_cnt
+
+    def func(nums):
+        smallest = min(nums)
+        largest  = max(nums)
+
+        return count([num for num in nums if smallest < num < largest])
