@@ -719,4 +719,19 @@ class Solution:
 
         return res_arr
 
+#  leetcode 905
+#  https://leetcode.com/problems/sort-array-by-parity/description/
+class Solution:
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        
+        i = 0
+        sorted = False
+        while not sorted:
+            sorted = True
+            for i in range(1, len(nums)):
+                if nums[i-1]%2 != 0 and nums[i]%2 == 0:
+                    nums[i-1], nums[i] = nums[i], nums[i-1]
+                    sorted = False
+        return nums
+
         
