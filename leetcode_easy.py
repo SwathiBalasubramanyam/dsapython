@@ -664,3 +664,29 @@ class Solution:
         if min_idx == float("inf"):
             return -1
         return min_idx
+
+# leetcode 2114
+# https://leetcode.com/problems/maximum-number-of-words-found-in-sentences/description/
+class Solution:
+    def mostWordsFound(self, sentences: List[str]) -> int:
+        
+        max_cnt = 0
+        for sentence in sentences:
+            max_cnt = max(max_cnt, len(sentence.split(" ")))
+        return max_cnt
+
+# leetcode 2119
+# https://leetcode.com/problems/a-number-after-a-double-reversal/description/
+class Solution:
+    def isSameAfterReversals(self, num: int) -> bool:
+        
+        def rev_num(num):
+            res_num = 0
+            while num > 0:
+                res_num = (res_num * 10) + num % 10
+                num //= 10
+
+            return res_num
+
+        return num == rev_num(rev_num(num))
+        
