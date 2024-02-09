@@ -776,7 +776,51 @@ class Solution:
         else:
             return self.searchMatrix(matrix[mid+1:], target)
 
+#  leetcode 
+# https://leetcode.com/problems/koko-eating-bananas/
+#  brute force
+class Solution:
+    def minEatingSpeed(self, piles, h):
+        
+        import math
+        max_bananas = max(piles)
+        
+        completed = []
+        for idx in range(1, max_bananas+1):
+            hours_so_far = 0
+            for pile in piles:
+                hours_so_far += math.ceil(pile/idx)
 
+            if hours_so_far <= h:
+                completed.append(idx)
 
+        return min(completed)
 
+print(Solution().minEatingSpeed([3,6,7,11], 8))
+
+#  binary search solution
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        
+        import math
+
+        rp = max(piles)
+        lp = 1
+        min_rate = float("inf")
+
+        while lp <= rp:
+
+            mid = (lp + rp) // 2
+
+            hours = 0
+            for pile in piles:
+                hours += math.ceil(pile/mid)
+        
+            if hours <= h:
+                min_rate = min(min_rate, mid)
+                rp = mid - 1
+            else:
+                lp = mid + 1
+
+        return min_rate
 
