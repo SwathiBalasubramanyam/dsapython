@@ -756,6 +756,26 @@ class Solution:
                 digit = (digit * 10) + (last_digit)
 
         return sorted(output)
+    
+#  leetcode 74
+#  https://leetcode.com/problems/search-a-2d-matrix/description/
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        if not matrix:
+            return False
+
+        matrix_len = len(matrix)
+
+        mid = matrix_len // 2
+
+        if target in matrix[mid]:
+            return True
+        elif target < matrix[mid][0]:
+            return self.searchMatrix(matrix[:mid], target)
+        else:
+            return self.searchMatrix(matrix[mid+1:], target)
+
 
 
 
