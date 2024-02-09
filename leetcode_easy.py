@@ -735,3 +735,28 @@ class Solution:
         return nums
 
         
+# leetcode 1291
+# https://leetcode.com/problems/sequential-digits/description/?envType=daily-question&envId=2024-02-02
+class Solution:
+    def sequentialDigits(self, low: int, high: int) -> List[int]:
+
+        starting_digits = [1, 2, 3, 4, 5, 6, 7, 8]
+
+        output = []
+
+        for digit in starting_digits:
+
+            while digit <= high:
+                if low <= digit <= high:
+                    output.append(digit)
+
+                last_digit = (digit % 10) + 1
+                if last_digit > 9:
+                    break
+                digit = (digit * 10) + (last_digit)
+
+        return sorted(output)
+
+
+
+
