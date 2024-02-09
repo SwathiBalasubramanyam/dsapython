@@ -852,3 +852,13 @@ class Solution:
 
         return prices
         
+# leetcode 171
+# https://leetcode.com/problems/excel-sheet-column-number/
+def titleToNumber(self, columnTitle: str) -> int:
+        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        tlen = len(columnTitle)-1
+
+        val = 0
+        for idx, char in enumerate(columnTitle):
+            val += 26**(tlen-idx) * (chars.index(char) + 1)
+        return val
