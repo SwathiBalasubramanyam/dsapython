@@ -824,3 +824,31 @@ class Solution:
 
         return min_rate
 
+# leetcode 1207
+#  https://leetcode.com/problems/unique-number-of-occurrences/description/
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+
+        from collections import defaultdict
+        my_dict = defaultdict(int)
+        for num in arr:
+            my_dict[num] += 1
+
+        return sorted(list(set(my_dict.values()))) == sorted(my_dict.values())
+    
+#  leetcode 1475
+# https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/description/
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        
+        for i in range(len(prices)):
+            min_index = None
+            for j in range(i+1, len(prices)):
+                if prices[j] <= prices[i]:
+                    min_index = j
+                    break
+            if min_index:
+                prices[i] = prices[i] - prices[j]
+
+        return prices
+        
