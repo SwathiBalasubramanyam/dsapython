@@ -862,3 +862,21 @@ def titleToNumber(self, columnTitle: str) -> int:
         for idx, char in enumerate(columnTitle):
             val += 26**(tlen-idx) * (chars.index(char) + 1)
         return val
+
+#  leetcode 
+#  https://leetcode.com/problems/backspace-string-compare/
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+
+        def format_str(my_string):
+            my_stack = []
+            for char in my_string:
+                if char != "#":
+                    my_stack.append(char)
+                elif my_stack:
+                    my_stack.pop()
+
+            return my_stack
+
+        return format_str(s) == format_str(t)
+    
