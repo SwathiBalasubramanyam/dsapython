@@ -919,3 +919,41 @@ while resNode:
     print(resNode.left, resNode.val, resNode.right)
     resNode = resNode.right
 
+
+#  https://leetcode.com/problems/longest-nice-substring/
+class Solution:
+    def longestNiceSubstring(self, s: str) -> str:
+        curr_max = ""
+        for i in range(len(s)):
+            for j in range(i+2, len(s)+1):
+                sub_str = s[i:j]
+                if set(sub_str) == set(sub_str.swapcase()) and len(sub_str) > len(curr_max):
+                    curr_max = sub_str
+        return curr_max
+
+# this problem can have multiple solutions, one with stack and queue.
+# but that is timing out as it is 2**n iterations
+def longestNiceSubstring(self, s: str) -> str:
+        from collections import Counter
+
+        stack = [s]
+        curr_max = ""
+        while stack:
+
+            last_ele = stack.pop()
+            char_cnt = Counter(last_ele)
+
+            for key in char_cnt.keys():
+                if (key.islower() and not char_cnt.get(key.upper())) or (key.isupper() and not char_cnt.get(key.lower())):
+                    if len(last_ele[1:]) > 1: 
+                        stack.append(last_ele[1:])
+                    if len(last_ele[:-1]):
+                        stack.append(last_ele[:-1])
+
+                    break
+            else:
+                if len(last_ele) > len(curr_max):
+                    curr_max = last_ele
+                
+            
+        return curr_max  
