@@ -42,3 +42,24 @@ class Solution:
                 curr_max = max(curr_max, len(s[lp:rp]))
 
         return curr_max
+    
+# https://leetcode.com/problems/partition-labels/
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+
+        last_occur = {}
+        for idx, char in enumerate(s):
+            last_occur[char] = idx
+
+        rp = 0
+        start = 0
+        substrs = []
+
+        for lp, char in enumerate(s):
+            rp = max(rp, last_occur[char])
+
+            if lp == rp:
+                substrs.append(len(s[start: rp+1]))
+                start = lp+1
+
+        return substrs
