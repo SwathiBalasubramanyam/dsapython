@@ -63,3 +63,41 @@ class Solution:
                 start = lp+1
 
         return substrs
+
+# https://leetcode.com/problems/number-of-islands/
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        ROWS = len(grid)
+        COLS = len(grid[0])
+        DIRS = [(-1,0), (1, 0), (0, -1), (0, 1)]
+
+        def inbound(r, c):
+            return 0 <= r < ROWS and 0 <= c < COLS
+
+        def get_neighbors(r, c):
+            neighbors = []
+            for dr, dc in DIRS:
+                if inbound(r+dr, c+dc):
+                    neighbors.append((r+dr, c+dc))
+            return neighbors
+
+        def dfs(r, c):
+            stack = [(r,c)]
+            while stack:
+                ele_r, ele_c = stack.pop()
+                if grid[ele_r][ele_c] == "1":
+                    grid[ele_r][ele_c] = "0"
+                    stack += get_neighbors(ele_r, ele_c)
+
+        num_islands = 0
+        for r in range(ROWS):
+            for c in range(COLS):
+                ele = grid[r][c]
+                if ele != "1":
+                    continue
+                dfs(r, c)
+                num_islands += 1
+
+        return num_islands   
+        
+        
