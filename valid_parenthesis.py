@@ -17,8 +17,6 @@ class Solution:
             if close_to_open[ele] != last_ele:
                 return False
 
-            print(stack)
-
         return len(stack) == 0
 
 print(Solution().isValid("{[]}"))
