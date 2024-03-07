@@ -99,6 +99,18 @@ class Solution:
             return find_mid(slow.next, fast.next.next)
 
         return find_mid(head, head)
-        
+
+# https://leetcode.com/problems/remove-duplicates-from-sorted-list/submissions/1197124847/
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        curr = head
+
+        while curr and curr.next:
+            if curr.val == curr.next.val:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
+
+        return head        
 
             
