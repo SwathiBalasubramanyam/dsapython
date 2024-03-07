@@ -113,4 +113,35 @@ class Solution:
 
         return head        
 
+# https://leetcode.com/problems/add-two-numbers/
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        
+        head = ListNode()
+        root = head
+        carry = 0
+
+        while l1 or l2:
+            curr_sum = carry
+            if l1:
+                curr_sum += l1.val
+                l1 = l1.next
+
+            if l2:
+                curr_sum += l2.val
+                l2 = l2.next
+
+            tail = ListNode(curr_sum % 10)
+            carry = curr_sum // 10
+            root.next = tail
+            root = root.next
+
+        if carry:
+            tail = ListNode(carry)
+            root.next = tail
+            
+        return head.next
+
+
+
             
