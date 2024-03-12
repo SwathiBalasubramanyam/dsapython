@@ -997,5 +997,17 @@ class Solution:
         
         return abs(digit_sum - element_sum)
 
+# https://leetcode.com/problems/number-of-arithmetic-triplets/
+class Solution:
+    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
+        nlen = len(nums)
+        triplets = []
+        for i in range(nlen):
+            for j in range(i+1, nlen):
+                for k in range(j+1, nlen):
+                    if nums[j] - nums[i] == diff and nums[k] - nums[j] == diff:
+                        triplets.append((i, j, k))
+
+        return len(triplets)
 
         
