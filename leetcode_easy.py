@@ -957,3 +957,24 @@ def longestNiceSubstring(self, s: str) -> str:
                 
             
         return curr_max  
+
+# https://leetcode.com/problems/design-an-ordered-stream/
+class OrderedStream:
+
+    def __init__(self, n: int):
+        self.n = n
+        self.arr = [(i, None) for i in range(n)]
+        self.next_id = 1
+
+    def insert(self, idKey: int, value: str) -> List[str]:
+        self.arr[idKey-1] = (idKey-1, value)
+
+        res = []
+        while self.next_id-1 < self.n and self.arr[self.next_id-1][1]:
+            res.append(self.arr[self.next_id-1][1])
+            self.next_id += 1
+        return res
+        
+# Your OrderedStream object will be instantiated and called as such:
+# obj = OrderedStream(n)
+# param_1 = obj.insert(idKey,value)
