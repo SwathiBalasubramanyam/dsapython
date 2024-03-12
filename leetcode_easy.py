@@ -1010,4 +1010,14 @@ class Solution:
 
         return len(triplets)
 
-        
+# https://leetcode.com/problems/sum-of-all-odd-length-subarrays/submissions/1201910808/
+class Solution:
+    def sumOddLengthSubarrays(self, arr: List[int]) -> int:
+        tsum = 0
+        for i in range(0, len(arr), 2):
+            for j in range(len(arr)):
+                tsum += sum(arr[j: j+i+1])
+                if (j+i+1) >= len(arr):
+                    break
+
+        return tsum
