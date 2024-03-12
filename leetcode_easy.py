@@ -978,3 +978,24 @@ class OrderedStream:
 # Your OrderedStream object will be instantiated and called as such:
 # obj = OrderedStream(n)
 # param_1 = obj.insert(idKey,value)
+    
+# https://leetcode.com/problems/difference-between-element-sum-and-digit-sum-of-an-array/
+class Solution:
+    def differenceOfSum(self, nums: List[int]) -> int:
+        element_sum = sum(nums)
+
+        def get_digit_sum(num):
+            dsum = 0
+            while num:
+                dsum += num % 10
+                num = num // 10
+            return dsum
+
+        digit_sum = 0
+        for num in nums:
+            digit_sum += get_digit_sum(num)
+        
+        return abs(digit_sum - element_sum)
+
+
+        
