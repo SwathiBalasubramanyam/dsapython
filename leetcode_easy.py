@@ -1062,3 +1062,35 @@ class BrowserHistory:
 # obj.visit(url)
 # param_2 = obj.back(steps)
 # param_3 = obj.forward(steps)
+    
+# https://leetcode.com/problems/minimum-falling-path-sum/
+class Solution:
+    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
+        ROWS = len(matrix)
+        COLS = len(matrix[0])
+        min_sum = float("inf")
+        memo = {}
+        
+        def _inbounds(col):
+            return 0 <= col < COLS
+
+        def _dfs(row_id, col_id):
+            if not _inbounds(col_id):
+                return float("inf")
+
+            if row_id == ROWS-1:
+                return matrix[row_id][col_id]
+
+            if (row_id, col_id) in memo:
+                return memo[(row_id, col_id)]
+
+            left = _dfs(row_id + 1, col_id - 1)
+            mid = _dfs(row_id + 1, col_id)
+            right = _dfs(row_id + 1, col_id + 1)
+
+            memo[(row_id, col_id)] = min(left, mid, right) + matrix[row_id][col_id]
+            return memo[(row_id, col_id)]
+        
+        for col_id in range(COLS):
+            min_sum = min(min_sum, _dfs(0, col_id))
+        return min_sum
