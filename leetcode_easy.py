@@ -1021,3 +1021,44 @@ class Solution:
                     break
 
         return tsum
+
+# https://leetcode.com/problems/design-browser-history/
+class BrowserHistory:
+
+    def __init__(self, homepage: str):
+        self.backwards = []
+        self.forwards = []
+        self.backwards.append(homepage)
+        
+
+    def visit(self, url: str) -> None:
+        self.backwards.append(url)
+        self.forwards = []
+
+    def back(self, steps: int) -> str:
+        steps = min(steps, len(self.backwards)-1)
+
+        while steps > 0:
+            curr = self.backwards.pop()
+            self.forwards.append(curr)
+            steps -= 1
+
+        return self.backwards[-1]
+        
+    def forward(self, steps: int) -> str:
+        # steps = min(steps, len(self.forwards)-1)
+
+        while steps > 0 and self.forwards:
+            curr = self.forwards.pop()
+            self.backwards.append(curr)
+            steps -= 1
+
+        return self.backwards[-1]
+        
+
+
+# Your BrowserHistory object will be instantiated and called as such:
+# obj = BrowserHistory(homepage)
+# obj.visit(url)
+# param_2 = obj.back(steps)
+# param_3 = obj.forward(steps)
