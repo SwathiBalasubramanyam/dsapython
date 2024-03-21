@@ -3,6 +3,9 @@
 class Solution:
     from collections import deque
 
+    # time complexity --> o(m*n*k)
+    # space complexity --> o(m*n*k)
+
     def shortestPath(self, grid: List[List[int]], k: int) -> int:
         
         ROWS, COLS = len(grid), len(grid[0])

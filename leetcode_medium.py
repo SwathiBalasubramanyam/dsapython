@@ -100,4 +100,29 @@ class Solution:
 
         return num_islands   
         
+# https://leetcode.com/problems/odd-even-linked-list/submissions/1210414837/
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        odd_root = ListNode()
+        odd_tail = odd_root
+
+        even_root = ListNode()
+        even_tail = even_root
+
+        idx = 1
+        while head:
+            if idx % 2 == 0:
+                even_tail.next = head
+                even_tail = even_tail.next
+            else:
+                odd_tail.next = head
+                odd_tail = odd_tail.next
+
+            head = head.next
+            idx += 1
+
+        odd_tail.next = even_root.next
+        even_tail.next = None
+        return odd_root.next
         
