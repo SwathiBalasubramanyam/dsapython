@@ -178,3 +178,59 @@ class Solution:
             for c in range(cols):
                 mat[r][c] = mat_dict[r-c].pop()
         return mat
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+# https://leetcode.com/problems/amount-of-time-for-binary-tree-to-be-infected/
+from collections import defaultdict, deque
+
+class Solution:
+    def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
+
+        adj_list = defaultdict(list)
+        # nodes = [(root, None)]
+        # while nodes:
+        #     curr_node, node_parent = nodes.pop()
+        #     if node_parent:
+        #         adj_list[curr_node.val].append(node_parent.val)
+        #     if curr_node.left:
+        #         adj_list[curr_node.val].append(curr_node.left.val)
+        #         nodes.append((curr_node.left, curr_node))
+        #     if curr_node.right:
+        #         adj_list[curr_node.val].append(curr_node.right.val)
+        #         nodes.append((curr_node.right, curr_node))
+
+
+        def _tree_to_graph(node, parent):
+            if not node:
+                return
+
+            if parent:
+                adj_list[node.val].append(parent.val)
+                adj_list[parent.val].append(node.val)
+
+            _tree_to_graph(node.left, node)
+            _tree_to_graph(node.right, node)
+
+        _tree_to_graph(root, None)
+
+        minutes = 0
+        queue = deque([(start, minutes)])
+        visited_set = set()
+
+        while queue:
+            node_val, minutes = queue.popleft()
+            
+            visited_set.add(node_val)
+
+            for adj_node in adj_list[node_val]:
+                if adj_node not in visited_set:
+                    queue.append((adj_node, minutes+1))
+
+        return minutes
