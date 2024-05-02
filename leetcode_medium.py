@@ -126,3 +126,33 @@ class Solution:
         even_tail.next = None
         return odd_root.next
         
+
+# https://leetcode.com/problems/sort-the-matrix-diagonally/
+class Solution:
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+
+        rows = len(mat)
+        cols = len(mat[0])
+
+        def get_diagonal_idxs_and_vals(row, col):
+            diagonal_idxs = []
+            diagonal_vals = []
+            while row < rows and col < cols:
+                diagonal_idxs.append((row, col))
+                diagonal_vals.append(mat[row][col])
+                row += 1
+                col += 1
+            return diagonal_idxs, sorted(diagonal_vals)
+
+        def put_vals_in_place(dig_idxs, dig_data):
+            for i in range(len(dig_idxs)):
+                r, c = dig_idxs[i]
+                mat[r][c] = dig_data[i]
+
+
+        for i in range(rows):
+            for j in range(cols):
+                dig_idxs, dig_data = get_diagonal_idxs_and_vals(i, j)
+                put_vals_in_place(dig_idxs, dig_data)
+
+        return mat
