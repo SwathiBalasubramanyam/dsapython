@@ -156,3 +156,25 @@ class Solution:
                 put_vals_in_place(dig_idxs, dig_data)
 
         return mat
+    
+# https://leetcode.com/problems/sort-the-matrix-diagonally/
+
+class Solution:
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+
+        from collections import defaultdict
+        rows = len(mat)
+        cols = len(mat[0])
+        mat_dict = defaultdict(list)
+
+        for r in range(rows):
+            for c in range(cols):
+                mat_dict[r-c].append(mat[r][c])
+
+        for k, v in mat_dict.items():
+            mat_dict[k] = sorted(v, reverse=True)
+
+        for r in range(rows):
+            for c in range(cols):
+                mat[r][c] = mat_dict[r-c].pop()
+        return mat
