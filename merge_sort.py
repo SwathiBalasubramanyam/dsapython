@@ -1,28 +1,26 @@
-# Write your code here.
-def merge_sort(lst):
-    if len(lst) <= 1:
-        return lst
+arr = [5, 2, 38, 91, 16, 427]
 
-    mid = len(lst) // 2
-    left = lst[:mid]
-    right = lst[mid:]
-    return merge(merge_sort(left), merge_sort(right))
-
-def merge(first_half, second_half):
-    new_arr = []
+def merge_sort(arr):
+    if len(arr) < 2:
+        return arr
     
-    while first_half and second_half:
-        if first_half[0] <= second_half[0]:
-            new_arr.append(first_half[0])
-            first_half = first_half[1:]
-        else:
-            new_arr.append(second_half[0])
-            second_half = second_half[1:]
+    def sort_left_right(left_arr, right_arr):
+        res_arr = []
+        while len(left_arr) and len(right_arr):
+            
+            if left_arr[0] < right_arr[0]:
+                res_arr.append(left_arr[0])
+                left_arr = left_arr[1:]
+            else:
+                res_arr.append(right_arr[0])
+                right_arr = right_arr[1:]
 
-    return new_arr + first_half + second_half
+        return res_arr + left_arr + right_arr
+    
+    mid = len(arr)//2
+    left_arr = arr[:mid]
+    right_arr = arr[mid:]
 
+    return sort_left_right(merge_sort(left_arr), merge_sort(right_arr))
 
-lst = [5, 2, 38, 91, 16, 427]
-
-sorted_lst = merge_sort(lst)        # Out of place solution
-print(sorted_lst)
+print(merge_sort(arr))
