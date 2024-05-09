@@ -234,3 +234,27 @@ class Solution:
                     queue.append((adj_node, minutes+1))
 
         return minutes
+
+
+class Solution:
+    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+        from collections import defaultdict
+        from queue import deque
+
+        adjacency_list = defaultdict(list)
+        for edge in edges:
+            adjacency_list[edge[1]].append(edge[0])
+
+        res = []
+        for i in range(n):
+            all_ancestors = set()
+            node_ancestors = deque(adjacency_list[i])
+            while node_ancestors:
+                ancestor = node_ancestors.popleft()
+                if ancestor in all_ancestors:
+                    continue
+                all_ancestors.add(ancestor)
+                node_ancestors += adjacency_list[ancestor]
+            res.append(sorted(all_ancestors))
+
+        return res

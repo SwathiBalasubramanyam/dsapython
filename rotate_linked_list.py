@@ -9,33 +9,27 @@ class Solution:
             return head
 
         ll_len = 1
+        old_head = head
         root = head
-        tail = None
         while root.next:
             root = root.next
             ll_len += 1
-            if not root.next:
-                tail = root
+
+        old_tail = root
             
         k %= ll_len
         if not k:
             return head
             
-        tail_idx = ll_len - k
+        new_tail_pos = ll_len-k-1
+        new_tail = head
+        while new_tail_pos:
+                new_tail = new_tail.next
+                new_tail_pos -= 1
 
-        old_head = head
+        new_head = new_tail.next
+        new_tail.next = None
+        old_tail.next = old_head
 
-        i = 1
-        while i <= tail_idx:
-            if i == tail_idx:
-                node = head
-                head = head.next
-                node.next = None
-            else:
-                head = head.next
-            i += 1
-
-        tail.next = old_head
-
-        return head
+        return new_head
         
