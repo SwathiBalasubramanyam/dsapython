@@ -258,3 +258,76 @@ class Solution:
             res.append(sorted(all_ancestors))
 
         return res
+
+# https://leetcode.com/problems/implement-trie-prefix-tree/
+class TrieNode:
+    def __init__(self, val):
+        self.val = val
+        self.children = {}
+        self.isEndOfWord = False
+
+    def __str__(self):
+        return f"{self.val}, {self.isEndOfWord}"
+
+class Trie:
+
+    def __init__(self):
+        self.root = TrieNode("")
+
+    def insert(self, word: str) -> None:
+        current_node = self.root
+        for char in word:
+            if char not in current_node.children:
+                current_node.children[char] = TrieNode(char)
+            current_node = current_node.children[char]
+
+        current_node.isEndOfWord = True
+
+    def traverse(self, word):
+        current_node = self.root
+        for char in word:
+            if char not in current_node.children:
+                return False
+            current_node = current_node.children[char]
+        return current_node
+
+    def search(self, word: str) -> bool:
+        res = self.traverse(word)
+        return res if type(res) is bool else res.isEndOfWord
+
+
+    def startsWith(self, prefix: str) -> bool:
+        return bool(self.traverse(prefix))
+
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
+    
+# https://leetcode.com/problems/successful-pairs-of-spells-and-potions/description/
+    class Solution:
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        
+        def _binary_search(spell):
+            print("starting")
+            left, right = 0, len(potions)-1
+            while left <= right:
+                print("before", left, right)
+                mid = (left+right)//2
+
+                if spell*potions[mid] >= success:
+                    right = mid - 1
+                else :
+                    left = mid + 1
+                print("after", left, right)
+                
+            return left
+
+        res = []
+        potions.sort()
+        for spell in spells:
+            idx = _binary_search(spell)
+            res.append(len(potions)-idx)
+        return res
