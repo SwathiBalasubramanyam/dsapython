@@ -1094,3 +1094,25 @@ class Solution:
         for col_id in range(COLS):
             min_sum = min(min_sum, _dfs(0, col_id))
         return min_sum
+
+# https://leetcode.com/problems/two-sum/
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+
+        # for idx in range(len(nums)):
+        #     for jdx in range(idx+1, len(nums)):
+        #         if nums[idx] + nums[jdx] == target:
+        #             return [idx, jdx]
+
+        # for idx, num in enumerate(nums):
+        #     component = target - num
+        #     if component in nums and nums.index(component) != idx:
+        #         return [idx, nums.index(component)]
+
+        nums_hash = {}
+        for idx, num in enumerate(nums):
+            compliment = target - num
+            if compliment in nums_hash:
+                return [idx, nums_hash[compliment]]
+            nums_hash[num] = idx
+        
