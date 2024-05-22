@@ -383,3 +383,11 @@ class Solution:
 
         return matrix
         
+# https://leetcode.com/problems/sort-characters-by-frequency/
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        from collections import Counter
+        char_cnt = sorted(Counter(s).items(), key=lambda item: item[-1], reverse=True)
+        
+        return "".join([tup[1]* tup[0] for tup in char_cnt])
+        
