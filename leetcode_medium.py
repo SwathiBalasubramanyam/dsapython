@@ -331,3 +331,55 @@ class Trie:
             idx = _binary_search(spell)
             res.append(len(potions)-idx)
         return res
+    
+# https://leetcode.com/problems/group-anagrams/description/
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        from collections import defaultdict
+
+        word_dict = defaultdict(list)
+        for word in strs:
+            word_dict["".join(sorted(list(word)))].append(word)
+        return word_dict.values()
+    
+# https://leetcode.com/problems/product-of-array-except-self/
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        res = []
+        prod = 1
+        for idx in range(len(nums)):
+            res.append(prod)
+            prod *= nums[idx]
+
+        prod = 1
+        for idx in range(len(nums)-1, -1, -1):
+            res[idx] *= prod
+            prod *= nums[idx]
+
+        return res
+
+# https://leetcode.com/problems/set-matrix-zeroes/
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        rows_set = set()
+        cols_set = set()
+
+        ROWS = len(matrix)
+        COLS = len(matrix[0])
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                if matrix[r][c] == 0:
+                    rows_set.add(r)
+                    cols_set.add(c)
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                if r in rows_set or c in cols_set :
+                    matrix[r][c] = 0
+
+        return matrix
+        
