@@ -390,4 +390,25 @@ class Solution:
         char_cnt = sorted(Counter(s).items(), key=lambda item: item[-1], reverse=True)
         
         return "".join([tup[1]* tup[0] for tup in char_cnt])
-        
+
+# https://leetcode.com/problems/rotate-image/
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+
+        # 00 01 02 --> 20 10 00
+        # 10 11 12 --> 01 11 21
+        # 20 21 22 --> 22 12 02
+
+        l = 0
+        r = len(matrix) -1
+        while l < r:
+	        matrix[l], matrix[r] = matrix[r], matrix[l]
+	        l += 1
+	        r -= 1
+        # transpose 
+        for i in range(len(matrix)):
+	        for j in range(i):
+		        matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
