@@ -412,3 +412,51 @@ class Solution:
         for i in range(len(matrix)):
 	        for j in range(i):
 		        matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+# https://leetcode.com/problems/word-search/
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        from collections import Counter, defaultdict, deque
+
+        ROWS = len(board) 
+        COLS  = len(board[0])
+        DIRECTIONS = [(0,1), (1,0), (-1, 0), (0, -1)]
+
+        word_char_count = Counter(word)
+        board_char_count = defaultdict(int)
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                board_char_count[board[r][c]] += 1
+
+        for char, cnt in word_char_count.items():
+            if board_char_count[char] < cnt:
+                return False
+
+        def _get_neighbors(cell, visited):
+            valid_dirs = []
+            for dir in DIRECTIONS:
+                new_row, new_col = cell[0] + dir[0], cell[1] + dir[1]
+                if 0 <= new_row < ROWS and 0 <= new_col < COLS and (new_row, new_col) not in visited:
+                    valid_dirs.append((new_row, new_col))
+
+            return valid_dirs
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                visited = set()
+                my_stack = [(r,c)]
+                word_sofar = ""
+                while my_stack:
+                    last_ele = my_stack.pop()
+                    new_word = word_sofar + board[last_ele[0]][last_ele[1]]
+                    if not word.startswith(new_word):
+                        continue
+                    word_sofar += board[last_ele[0]][last_ele[1]]
+
+                    if word_sofar == word:
+                        return True
+                        
+                    visited.add((r,c))
+                    my_stack += _get_neighbors(last_ele, visited)
+        return False
