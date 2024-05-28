@@ -1199,3 +1199,44 @@ class Solution:
                 ranges.append([nums[lp], nums[rp]])
 
         return [f'{ele[0]}' if ele[0] == ele[1] else f"{ele[0]}->{ele[1]}" for ele in ranges]
+    
+# https://leetcode.com/problems/power-of-two/
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        exp = 0
+        base = 2
+
+        while True:
+            val = base**exp
+            if val > n:
+                return False
+            if val == n:
+                return True
+            exp += 1
+            
+# https://leetcode.com/problems/binary-tree-paths/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        res = []
+
+        my_stack = [(root, str(root.val))]
+        while my_stack:
+            curr_node, curr_paths = my_stack.pop()
+
+            if not curr_node.left and not curr_node.right:
+                res.append(curr_paths)
+
+            if curr_node.left:
+                my_stack.append((curr_node.left, curr_paths + f"->{curr_node.left.val}"))
+
+            if curr_node.right:
+                my_stack.append((curr_node.right, curr_paths + f"->{curr_node.right.val}"))
+
+        return res
+        
