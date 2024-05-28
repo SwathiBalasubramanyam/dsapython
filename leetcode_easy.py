@@ -1239,4 +1239,19 @@ class Solution:
                 my_stack.append((curr_node.right, curr_paths + f"->{curr_node.right.val}"))
 
         return res
+
+# https://leetcode.com/problems/add-digits/
+class Solution:
+    def addDigits(self, num: int) -> int:
         
+        new_num = 0
+        while num:
+            rem = num % 10
+            num = num // 10
+            new_num += rem
+
+            if num == 0 and new_num > 9:
+                num = new_num
+                new_num = 0
+
+        return new_num
