@@ -1177,3 +1177,25 @@ class Solution:
 
         return TreeNode(val=root.val, left=self.invertTree(root.right), right=self.invertTree(root.left))
         
+
+# https://leetcode.com/problems/summary-ranges/
+
+class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        
+        ranges = []
+        lp = 0
+        nums_len = len(nums)
+
+        if nums_len == 1:
+            return [str(nums[0])]
+
+        for rp in range(1, nums_len):
+            if nums[rp] != (nums[rp-1] + 1):
+                ranges.append([nums[lp], nums[rp-1]])
+                lp = rp
+
+            if rp == (nums_len-1):
+                ranges.append([nums[lp], nums[rp]])
+
+        return [f'{ele[0]}' if ele[0] == ele[1] else f"{ele[0]}->{ele[1]}" for ele in ranges]
