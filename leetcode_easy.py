@@ -1255,3 +1255,61 @@ class Solution:
                 new_num = 0
 
         return new_num
+    
+# https://leetcode.com/problems/ugly-number/    
+class Solution:
+    def isUgly(self, num: int) -> bool:
+        if num == 0:
+            return False
+
+        while num % 5 == 0:
+            num /= 5
+
+        while num % 3 == 0:
+            num /= 3
+
+        while num % 2 == 0:
+            num /= 2
+
+        return num == 1
+    
+
+# https://leetcode.com/problems/first-bad-version/
+# The isBadVersion API is already defined for you.
+# def isBadVersion(version: int) -> bool:
+
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        lp, rp = 1, n
+
+        while lp < rp:
+            mid = (lp+rp) // 2
+
+            if isBadVersion(mid):
+                rp = mid
+            else:
+                lp = mid + 1
+
+        return lp
+
+# https://leetcode.com/problems/word-pattern/
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        str_split = s.split(" ")
+        seen_words = set()
+        char_to_word = defaultdict(str)
+
+        if len(str_split) != len(pattern):
+            return False
+
+        for idx, char in enumerate(pattern):
+            if char in char_to_word and char_to_word[char] != str_split[idx]:
+                return False
+
+            if str_split[idx] in seen_words and char not in char_to_word:
+                return False
+
+            char_to_word[char] = str_split[idx]
+            seen_words.add(str_split[idx])
+
+        return True
