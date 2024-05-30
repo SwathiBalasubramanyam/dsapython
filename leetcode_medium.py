@@ -460,3 +460,23 @@ class Solution:
                     visited.add((r,c))
                     my_stack += _get_neighbors(last_ele, visited)
         return False
+
+# https://leetcode.com/problems/letter-case-permutation/
+class Solution:
+    def letterCasePermutation(self, s: str) -> List[str]:
+
+        res_arr = set()
+        len_str = len(s)
+
+        def _backtrack(idx, curr_str):
+            if idx == len_str:
+                res_arr.add(curr_str)
+                return
+
+            if not s[idx].isnumeric():
+                _backtrack(idx+1, curr_str + s[idx].upper())
+            _backtrack(idx+1, curr_str + s[idx].lower())
+
+        _backtrack(0, "")
+        return list(res_arr)
+        
