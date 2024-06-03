@@ -480,3 +480,19 @@ class Solution:
         _backtrack(0, "")
         return list(res_arr)
         
+
+# https://leetcode.com/problems/rank-teams-by-votes/submissions/1276773752/
+class Solution:
+    def rankTeams(self, votes: List[str]) -> str:
+        votes_by_char = {}
+
+        for vote in votes:
+            for idx, char in enumerate(vote):
+                if char not in votes_by_char:
+                    votes_by_char[char] = [0 for _ in range(len(vote))]
+                votes_by_char[char][idx] += 1
+
+        sorted_vals = sorted(votes_by_char.items(), key=lambda item: (item[1], -ord(item[0])), reverse=True)
+
+        return "".join([fv for fv, sv in sorted_vals])
+                
