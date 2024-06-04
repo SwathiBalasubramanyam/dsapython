@@ -542,5 +542,85 @@ class Solution:
             else:
                 nums = left_nums
         return min_val
+
+# https://leetcode.com/problems/rotting-oranges/
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        ROWS = len(grid)
+        COLS = len(grid[0])
+        DIRS = [(0,1), (0, -1), (1,0), (-1,0)]
         
+        max_minutes = 0
+        my_queue = deque([])
+
+        def find_max_mins():
+            nonlocal max_minutes, my_queue
+            processed = set()
+            
+            while my_queue:
+                (row, col, minutes) = my_queue.popleft()
+                max_minutes = max(max_minutes, minutes)  
+
+                processed.add((row, col))
+
+                for dir in DIRS:
+                    dr, dc = row+dir[0], col+dir[1]
+                    if 0<=dr<ROWS and 0<=dc<COLS and grid[dr][dc] == 1 and (dr,dc) not in processed:
+                        grid[dr][dc] = 2
+                        my_queue.append((dr,dc,minutes+1))
+
+        for row in range(ROWS):
+            for col in range(COLS):
+                if grid[row][col] != 2:
+                    continue
+                my_queue.append((row, col,0))
+
+        find_max_mins()
+
+        for row in range(ROWS):
+            for col in range(COLS):
+                if grid[row][col] == 1:
+                    return -1
+
+        return max_minutes
+                
+
+# https://leetcode.com/problems/zigzag-conversion/      
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1:
+            return s
+
+        mat = ["" for _ in range(numRows)]
+        row = 0
+        dir = 1
+        for char in s:
+            mat[row]+= char
+            if (row+dir)%numRows == 0:
+                dir = -1
+            elif row == 0:
+                dir = 1
+            row += dir
+
+        return "".join(mat)
+        
+# https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to/
+class Solution:
+    def groupThePeople(self, groupSizes: List[int]) -> List[List[int]]:
+        group_chart = defaultdict(list)
+
+        for idx, group_size in enumerate(groupSizes):
+            gci = group_chart[group_size]
+            if not gci:
+                gci.append([idx])
+            elif len(gci[-1]) < group_size:
+                gci[-1].append(idx)
+            elif len(gci[-1]) >= group_size:
+                gci.append([idx])
+
+        res_array = []
+        for sub_list in group_chart.values():
+            res_array += sub_list
+        return res_array
+
         
