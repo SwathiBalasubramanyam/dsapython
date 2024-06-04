@@ -496,3 +496,51 @@ class Solution:
 
         return "".join([fv for fv, sv in sorted_vals])
                 
+# https://leetcode.com/problems/evaluate-reverse-polish-notation/description/
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        my_stack = []
+        operations = {'+', '-', '*', '/'}
+
+        for token in tokens:
+            if token not in operations:
+                my_stack.append(int(token))
+                continue
+            sn, fn = my_stack.pop(), my_stack.pop()
+            if token == '+':
+                my_stack.append(fn+sn)
+            elif token == '-':
+                my_stack.append(fn-sn)
+            elif token == '*':
+                my_stack.append(fn*sn)
+            else:
+                
+                my_stack.append(int(fn/sn))
+
+
+        return my_stack[0]
+
+        
+# https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/ 
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        min_val = float("inf")
+        
+        while nums:
+            if nums[0] <= nums[-1]:
+                min_val = min(min_val, nums[0])
+                break
+
+            mid = len(nums)//2
+            min_val = min(min_val, nums[mid])
+
+            left_nums = nums[:mid]
+            right_nums = nums[mid+1:]
+
+            if left_nums and nums[mid] >= left_nums[0]:
+                nums = right_nums
+            else:
+                nums = left_nums
+        return min_val
+        
+        
