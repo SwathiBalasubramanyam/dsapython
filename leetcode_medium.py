@@ -623,4 +623,88 @@ class Solution:
             res_array += sub_list
         return res_array
 
-        
+# https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/
+# class Solution:
+#     def numPairsDivisibleBy60(self, time: List[int]) -> int:
+#         lp = 0
+#         pairs = 0
+
+#         for idx in range(len(time)):
+#             for jdx in range(idx+1, len(time)):
+#                 if (time[idx] + time[jdx]) % 60 == 0:
+#                     pairs += 1
+
+#         return pairs
+
+class Solution:
+    def numPairsDivisibleBy60(self, time: List[int]) -> int:
+        res  , count  = 0,  [0] * 60
+        for one in range(len(time)):
+            index = time[one] % 60
+            res += count[(60 - index)%60] # %60 is for index==0
+            count[index] += 1
+        return res
+
+
+# https://leetcode.com/problems/3sum/
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue  # Skip duplicate values for the first element
+
+            left, right = i + 1, len(nums) - 1
+            while left < right:
+                s = nums[i] + nums[left] + nums[right]
+                if s < 0:
+                    left += 1
+                elif s > 0:
+                    right -= 1
+                else:
+                    res.append([nums[i], nums[left], nums[right]])
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1  # Skip duplicate values for the second element
+                    while left < right and nums[right] == nums[right - 1]:
+                        right -= 1  # Skip duplicate values for the third element
+                    left += 1
+                    right -= 1
+
+        return res
+
+# https://leetcode.com/problems/01-matrix/  
+class Solution:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        from queue import deque
+
+        DIRS = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        ROWS = len(mat)
+        COLS = len(mat[0])
+
+        res_arr = []
+
+        queue = deque()
+
+        for row in range(ROWS):
+            new_row = []
+            for col in range(COLS):
+                if mat[row][col] == 0:
+                    new_row.append(0)
+                    queue.append((row,col))
+                else:
+                    new_row.append(float("inf"))
+
+            res_arr.append(new_row)
+
+        while queue:
+            row, col = queue.popleft()
+            for dr, dc in DIRS:
+                r, c = row + dr, col + dc
+                if 0 <= r < ROWS and 0 <= c < COLS:
+                    if res_arr[r][c] > res_arr[row][col] + 1:
+                        res_arr[r][c] = res_arr[row][col] + 1
+                        queue.append((r, c))
+
+        return res_arr    
