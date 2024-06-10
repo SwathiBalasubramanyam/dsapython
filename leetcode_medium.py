@@ -708,3 +708,36 @@ class Solution:
                         queue.append((r, c))
 
         return res_arr    
+    
+# https://leetcode.com/problems/flower-planting-with-no-adjacent/
+class Solution:
+    def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
+        res = [1] * n
+
+        adj_list = defaultdict(list)
+        flower_choices = set([1,2,3,4])
+
+        for path in paths:
+            adj_list[path[0]].append(path[1])
+            adj_list[path[1]].append(path[0])
+
+        garden_to_flower = defaultdict(int)
+
+        def get_adj_flowers(adj_gardens):
+            res = set()
+            for adj_garden in adj_gardens:
+                if not garden_to_flower[adj_garden]:
+                    continue
+                res.add(garden_to_flower[adj_garden])
+            return res
+
+        for garden, adj_gardens in adj_list.items():
+
+            adj_flowers = get_adj_flowers(adj_gardens)
+            choices = flower_choices - adj_flowers
+            garden_to_flower[garden] = list(choices)[0]
+            res[garden-1] = garden_to_flower[garden]
+
+        return res
+
+        
