@@ -712,6 +712,7 @@ class Solution:
 # https://leetcode.com/problems/flower-planting-with-no-adjacent/
 class Solution:
     def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
+        # Initialize a result array with all gardens having 1 as flower
         res = [1] * n
 
         adj_list = defaultdict(list)
@@ -740,4 +741,23 @@ class Solution:
 
         return res
 
-        
+# https://leetcode.com/problems/integer-to-roman/
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        num_map =  [(1000, 'M'), (900,'CM'), (500, 'D'), (400,'CD'), (100, 'C'),
+           (90, 'XC'), (50, 'L'), (40, 'XL'), (10, 'X'), (9, 'IX'), 
+           (5, 'V'), (4, 'IV'), (1, 'I')]
+
+        res_str = ""
+
+        for k,v in num_map:
+
+            if k > num:
+                continue
+
+            quotient = num // k
+            res_str += (v * quotient)
+            num = num % k
+
+        return res_str
+

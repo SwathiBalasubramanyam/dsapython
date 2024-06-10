@@ -1313,3 +1313,29 @@ class Solution:
             seen_words.add(str_split[idx])
 
         return True
+
+# https://leetcode.com/problems/height-checker/?envType=daily-question&envId=2024-06-10
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+
+        def quick_sort(arr):
+            if not arr:
+                return []
+            pivot = arr[0]
+            left_eles = []
+            right_eles = []
+
+            for num in arr[1:]:
+                if num <= pivot:
+                    left_eles.append(num)
+                else:
+                    right_eles.append(num)
+
+            return quick_sort(left_eles) + [pivot] + quick_sort(right_eles)
+
+        sorted_arr = quick_sort(heights)
+        count = 0
+        for idx in range(len(heights)):
+            if heights[idx] != sorted_arr[idx]:
+                count += 1
+        return count        
