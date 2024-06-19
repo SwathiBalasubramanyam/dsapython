@@ -793,5 +793,48 @@ class Solution:
                 
 
         return -1
+    
+# https://leetcode.com/problems/time-based-key-value-store/submissions/1288355301/
+class TimeMap:
+
+    def __init__(self):
+        self.myDict = defaultdict(list)
+        
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.myDict[key].append([value, timestamp])
+        
+    def get(self, key: str, timestamp: int) -> str:
+        res, values = "", self.myDict[key]
+        l, r = 0, len(values)-1
+        while l <= r:
+            m = (l+r)//2
+            if values[m][1] == timestamp:
+                return values[m][0]
+            if values[m][1] < timestamp:
+                res = values[m][0]
+                l = m+1
+            else:
+                r = m-1
+        return res
+
+# https://neetcode.io/problems/longest-repeating-substring-with-replacement
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+
+        l = 0
+        max_cnt = 0
+        char_cnt = {}
+
+        for r in range(len(s)):
+
+            while len([k for k in char_cnt.keys() if char_cnt[k] > 0]) > k+1:
+                char_cnt[s[l]] -=1
+
+            char_cnt[s[r]] = 1 + char_cnt.get(s[r], 0)
+            max_cnt = max(max_cnt, r-l+1)
+
+        return max_cnt
+        
         
 
