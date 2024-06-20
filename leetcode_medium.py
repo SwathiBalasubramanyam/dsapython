@@ -838,4 +838,21 @@ class Solution:
         return max_cnt
         
         
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        # initialize a left, right pointer at 0, len(s1)
+        # while r <= len(s2)
+        # get the substring[l:r] --> "lec"
+        # sort the substring and see if it matches S1
+        #  if true, then return true else at the end return false
+
+        l, r = 0, len(s1)
+        sorted_s1 = sorted(s1)
+        while r <= len(s2):
+            sub_str = s2[l:r]
+            if sorted_s1 == sorted(sub_str):
+                return True
+            l += 1
+            r += 1
+        return False
 
