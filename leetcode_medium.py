@@ -879,7 +879,47 @@ class Solution:
         dfs(0, [], 0)
         return res
 
-            
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
 
+        if len(nums) == 1:
+            return [nums[:]]
 
+        res = []
+
+        for i in range(len(nums)):
+            n = nums.pop(0)
+            perms = self.permute(nums)
+
+            for perm in perms:
+                perm.append(n)
+            res += perms
+
+            nums.append(n)
+
+        return res
+        
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+
+        res = []
+        nums.sort()
+
+        def dfs(i, curr):
+            if i == len(nums):
+                res.append(curr.copy())
+                return 
+
+            curr.append(nums[i])
+            dfs(i+1, curr)
+            curr.pop()
+
+            while i+1 < len(nums) and nums[i] == nums[i+1]:
+                i+=1
+            dfs(i+1, curr)
+
+        dfs(0, [])
+        return res
+        
         
