@@ -923,3 +923,43 @@ class Solution:
         return res
         
         
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+
+        ROWS = len(board)
+        COLS = len(board[0])
+
+        visited = set()
+
+        def dfs(r,c,idx):
+            # that means we have already searched all the chars 
+            # and we reached last idx+1 so we can return true
+            if idx == len(word):
+                return True
+
+            # outofbounds errors so false
+            if r < 0 or r >= ROWS or c < 0 or c >= COLS:
+                return False
+
+            # in traced path
+            if (r,c) in visited:
+                return False
+
+            # char not in place, so false
+            if board[r][c] != word[idx]:
+                return False
+
+
+            visited.add((r,c))
+            res = dfs(r+1, c, idx+1) or dfs(r-1, c, idx+1) or dfs(r, c+1, idx+1) or dfs(r, c-1, idx+1)
+            visited.remove((r,c))
+
+            return res
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                if dfs(r, c, 0):
+                    return True
+
+        return False
+        
