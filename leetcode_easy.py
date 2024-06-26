@@ -1339,3 +1339,41 @@ class Solution:
             if heights[idx] != sorted_arr[idx]:
                 count += 1
         return count        
+    
+def round_sum(*args):
+    # Initialize a variable to hold the sum of all rounded numbers
+    total_sum = 0
+    
+    # Iterate through the input numbers
+    for num in args:
+        # Find the remainder when the number is divided by 10
+        remainder = num % 10
+        
+        # For positive numbers, if the remainder is 5 or more, round up
+        if num >= 0:
+            num -= remainder
+            if remainder >= 5:
+                num += 10
+        # For negative numbers, if the remainder is -5 or less, round down
+        else:
+            num -= remainder
+            if remainder <= -5:
+                num -= 10
+        
+        # Add the rounded number to the total sum
+        total_sum += num
+    
+    # Return the total sum of rounded numbers
+    return total_sum
+
+# Test cases
+print(round_sum(3, 17, 25, 40, 55))       # Expected output: 150
+print(round_sum(16, 29, 23))              # Expected output: 70
+print(round_sum(10, 15, 45, 50))          # Expected output: 120
+print(round_sum(2, 4, 6))                 # Expected output: 10
+print(round_sum(5, 15, 25, 35))           # Expected output: 80
+print(round_sum(-3, -17, -25, -40, -55))  # Expected output: -150
+print(round_sum(-16, -29, -23))           # Expected output: -70
+print(round_sum(-10, -15, -45, -50))      # Expected output: -120
+print(round_sum(-2, -4, -6))              # Expected output: -10
+print(round_sum(-5, -15, -25, -35))       # Expected output: -80
