@@ -1377,3 +1377,23 @@ print(round_sum(-16, -29, -23))           # Expected output: -70
 print(round_sum(-10, -15, -45, -50))      # Expected output: -120
 print(round_sum(-2, -4, -6))              # Expected output: -10
 print(round_sum(-5, -15, -25, -35))       # Expected output: -80
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev, curr = None, head
+
+        while curr:
+            nxt = curr.next
+            curr.next = prev 
+            prev = curr
+            curr = nxt
+
+        return prev
+        
