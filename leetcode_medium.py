@@ -997,6 +997,34 @@ class Solution:
             first = tmp1
             second = tmp2
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        tmp = head
+        node_len = 0
+        while tmp:
+            node_len += 1
+            tmp = tmp.next
+
+        node_to_delete = node_len - n
+
+        dummyNode = ListNode()
+        tail = dummyNode
+        while node_to_delete:
+            tail.next = head
+            head = head.next
+            tail = tail.next
+            tail.next = None
+            node_to_delete -= 1
+
+        if head.next:
+            tail.next = head.next
+        return dummyNode.next
+
         
 
 
