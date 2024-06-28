@@ -84,4 +84,43 @@ class Solution:
             tail.next = L2
         return dummy.next
 
-        
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        resNode = ListNode()
+        resTail = resNode
+        org_k = k
+
+        while head:
+            dummyNode = ListNode()
+            tail = dummyNode
+            while head and k:
+                tail.next = head
+                head = head.next
+                tail = tail.next
+                tail.next = None
+                k -= 1
+
+            if not k:
+                resTail.next = self.reverseLinkedList(dummyNode.next)
+                k = org_k
+                for i in range(k-1):
+                    resTail = resTail.next
+            else:
+                resTail.next = dummyNode.next
+            resTail = resTail.next
+
+        return resNode.next
+
+    def reverseLinkedList(self, head):
+        prev, curr = None, head
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        return prev
