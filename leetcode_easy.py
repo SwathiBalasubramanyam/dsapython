@@ -1426,3 +1426,52 @@ class Solution:
             tail.next = list2
 
         return dummyNode.next
+    
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        
+        maxDepth = 0
+
+        def dfs(root, count):
+            nonlocal maxDepth
+            if not root:
+                maxDepth = max(maxDepth, count)
+                return
+
+            dfs(root.left, count+1)
+            dfs(root.right, count+1)
+
+        dfs(root, 0)
+        return maxDepth
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        maxDia = 0
+
+        def dfs(root):
+            nonlocal maxDia
+            if not root:
+                return 0
+
+            left = dfs(root.left)
+            right = dfs(root.right)
+
+            maxDia = max(maxDia, left+right)
+            return 1 + max(left, right)
+
+
+        dfs(root)
+        return maxDia
