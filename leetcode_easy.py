@@ -1475,3 +1475,110 @@ class Solution:
 
         dfs(root)
         return maxDia
+    
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+
+        def dfs(root):
+            if not subRoot:
+                return true
+
+            if not root:
+                return False
+
+            if root.val == subRoot.val and self.isSameTree(root, subRoot):
+                print("hey root is equal to subroot", root, subRoot)
+                return True
+
+            return dfs(root.left) or dfs(root.right)
+
+        return dfs(root)
+        
+    def isSameTree(self, tree1, tree2):
+        if not tree1 and not tree2:
+            return True
+
+        if (not tree1 and tree2) or (tree1 and not tree2):
+            return False
+
+        return tree1.val == tree2.val and self.isSameTree(tree1.left, tree2.left) and self.isSameTree(tree1.right, tree2.right)
+    
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        
+        cur = root
+
+        while cur:
+            if p.val > cur.val and q.val > cur.val:
+                cur = cur.right
+            elif p.val < cur.val and q.val < cur.val:
+                cur = cur.left
+            else:
+                return cur
+            
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        res = []
+
+        if not root:
+            return res
+
+        queue = deque([root])
+        while queue:
+            int_res = []
+
+            for idx in range(len(queue)):
+                node = queue.popleft()
+                int_res.append(node.val)
+                
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+                
+            res.append(int_res)
+        return res
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        if not root:
+            return res
+
+        queue = deque([root])
+        while queue:
+            node = None
+            for idx in range(len(queue)):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            res.append(node.val)
+
+        return res
