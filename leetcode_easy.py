@@ -1619,18 +1619,42 @@ class Solution:
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    def isValidBST(self, root: Optional[TreeNode], left=float("-inf"), right=float("inf")) -> bool:
 
         if not root:
             return True
 
-        if root.left and not (root.val > root.left.val):
+        if not(left < root.val < right):
             return False
 
-        if root.right and not (root.val < root.right.val):
-            return False
+        return self.isValidBST(root.left, left, root.val) and self.isValidBST(root.right, root.val, right)
+        
+        
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        nodeVals = []
 
-        return self.isValidBST(root.left) and self.isValidBST(root.right)
-        
-        
+        def dfs(root):
+            if not root:
+                return 
+
+            nodeVals.append(root.val)
+            dfs(root.left)
+            dfs(root.right)
+
+        dfs(root)
+        nodeVals.sort()
+        return nodeVals[k-1]
