@@ -1582,3 +1582,55 @@ class Solution:
             res.append(node.val)
 
         return res
+    
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+
+        res = []
+
+        def dfs(root, max_so_far):
+            if not root:
+                return
+
+            if root.val >= max_so_far:
+                res.append(root.val)
+
+            dfs(root.left, max(max_so_far, root.val))
+            dfs(root.right, max(max_so_far, root.val))
+
+        dfs(root, root.val)
+        return len(res)
+        
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+
+        if not root:
+            return True
+
+        if root.left and not (root.val > root.left.val):
+            return False
+
+        if root.right and not (root.val < root.right.val):
+            return False
+
+        return self.isValidBST(root.left) and self.isValidBST(root.right)
+        
+        
