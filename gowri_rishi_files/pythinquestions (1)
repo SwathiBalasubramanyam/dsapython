@@ -1,0 +1,497 @@
+Python questions
+=================
+ 3:  Generate the ip addresses from given IP/Mask  	
+ 5:Explain how the Python coding standard maintained
+ 6:Explain the Code review process and how do you maintain the code integrity
+ 10:Convert Decimal to Binary using function.
+22:Find a triplet within a list whose sum is 0.
+
+
+
+	
+
+
+
+
+
+
+
+
+
+ 1:  IP Address regular expression and substiture that with another IP address
+
+
+answer:
+
+"^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.|$)){4}"
+"^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"
+
+
+"((([0-9a-fA-F]){1,4})\:){7}([0-9a-fA-F]){1,4}"
+--------------------------------------------------------------------------------------------------------
+
+
+import re
+ip = "1.0.28.4"
+ip_address = re.compile(r'(\d+)\.(\d+)\.(\d+)\.(\d+)')
+ip_addr = ip_address.match(ip)
+
+oct1 = int(ip_addr.group(1))
+oct2 = int(ip_addr.group(2))
+oct3 = int(ip_addr.group(3))
+oct4 = int(ip_addr.group(4))
+if   1 <= oct1 < 255  and 0 <= oct2 <= 255 and 0 <= oct3 <= 255 and 0 <= oct4 <= 255:
+     print ("valid ip address")
+else:
+    print ("invalid ip address. not ok")
+    
+new_ip = "25.23.23.43"
+
+change_ip = re.sub(ip_address,new_ip,ip)
+print (change_ip)
+
+----------------------------------------------------------------
+
+2:  Join the 2 lists and remove duplicates
+
+Answer1:
+
+a = [1,2,3,4,5,6]
+b = [3,4,5,6,7,8]
+c = a+b
+d = set(c)
+e = list(d)
+print (e)
+
+
+Answer2:
+
+a = [1,2,3,4,5,6]
+b = [3,4,5,6,7,8]
+
+c = a+b
+print (c)
+
+d = []
+
+for i in c:
+    if i not in d:
+        d.append(i)
+    
+print (d)
+
+
+ ---------------------------------------------------------
+ 
+ 
+ 3:  Generate the ip addresses from given IP/Mask  	
+ 
+https://docs.python.org/3/library/ipaddress.html
+--------------------------------------------------------------------
+ 4: Find Out balanced or unbalanced parenthesis string 
+	‘{[]}’ or ((({{[[}}]])))’
+ans:
+while len(x) > 0:
+    l = len(x)
+    x = x.replace("{}","").replace("[]","").replace("()","")
+    if len(x) == l:
+        print(False)
+        break
+print(True)
+-------------------------------------------------------------------------
+    
+ 5:Explain how the Python coding standard maintained
+ 
+ 6:Explain the Code review process and how do you maintain the code integrity
+
+-----------------------------------------------------------------
+ 
+ 7:What is difference between Tuple and list
+
+answer:
+tuple - immutable
+list - mutable
+
+------------------------------------------------------------
+ 
+ 8:Can you convert tuple to list , if yes how?
+
+answer1:
+
+a = (1,2,3,4,5)
+
+c = list(a)
+print (c)
+
+answer2:
+
+a = (1,2,3,4,5)
+
+b = []
+for i in a:
+    b.append(i)
+    
+print (b)
+
+----------------------------------------
+
+
+ 
+ 9:How do check the duplicates in list without using set function
+
+answer:
+a = [1,2,3,4,5,6]
+b = [3,4,5,6,7,8]
+
+c = a+b
+print (c)
+
+d = []
+
+for i in c:
+    if i not in d:
+        d.append(i)
+    
+print (d)
+
+--------------------------
+ 
+ 10:Convert Decimal to Binary using function.
+ 
+ 11:How do you represent this in python:
+			1,2,3 : A
+			50-100 : B
+			2000-50000 : C
+			150000 - 1000000 :D
+		If I pass a number, you need to map it to the letter from the above database.
+
+Answer:
+
+def map_num(num):
+    if 1 <= num <= 3:
+        print ("A")
+    elif 50 <= num <= 100:
+        print ("B")
+    elif 2000 <= num <= 50000:
+        print ("C")
+    elif 150000 <= num <= 1000000:
+        print ("D")
+    
+        
+map_num(3000)
+
+-----------------------------------------------------------------   
+12:Reverse the string, - python 
+y = x[::-1]
+
+print(y)
+-------------------------------------------------------------------
+
+13:Sum of all elements in list - python 
+
+14:How do you load yaml file safley ? use yaml.safeload() 
+
+15:Fibonacci
+
+16:How binary search works
+
+17:How to get total number of comments in a file---using regex find the total number of comments.
+
+18:Using data structure find reparative char.
+
+19:Parse for valid IP address .
+
+20:Move zeroes in a list to the right.
+
+21:Open a file , read the lines and put them in a dictionary.
+
+22:Find a triplet within a list whose sum is 0.
+
+23:what is difference between list tuples and dict
+
+##########################################################################################
+
+24: how to convert str to int. (don't ever use a=b what ever change you do it will change both list)
+ 
+like example a = list('12345678')
+how to do you convert to int
+a = list('123456789')
+>>> a = list('123456789')
+>>> print a
+['1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> b = []
+>>> for i in a:
+           	b.append(int(i))
+ 
+              
+>>> print b
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> b.append(10)
+>>> print a
+['1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> print b
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+>>>
+
+##########################################################################################
+
+25: how add one list to another list
+solution is not correct.  you need to do "for i in b: keep appending one by one to a"
+ 
+using the below method what ever change you do it will change the both list.
+>>> b=a
+>>> print a
+['1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> print b
+['1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> a.append('10')
+>>> print a
+['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+>>> print b
+['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+>>>
+##########################################################################################
+
+ 26:NOt using (= > < !=) find missing =number from 1 to 10
+given list is list1 = [1,2,3,4,6,7,8,9,10]
+ 
+Solution:
+x = sum(list1)
+y = sum(range(11))
+
+print(y-x)
+ 
+#############################################################################
+27) find give second string is permutation is first string
+ 
+
+6.1) Checking if two strings are permutations of each other in Python
+sorted(a)= sorted(b)
+>>> sorted(str1)
+['a', 'b', 'c']
+>>> sorted(str2)
+['a', 'b', 'c']
+>>> sorted(str1) == sorted(str2)
+True
+>>>
+ 
+##########################################################################################
+
+28) Here is a way which is O(n), asymptotically better than the two ways you suggest.
+ 
+import collections
+ 
+def same_permutation(a, b):
+	d = collections.defaultdict(int)
+	for x in a:
+    	d[x] += 1
+	for x in b:
+    	d[x] -= 1
+	return not any(d.itervalues())
+ 
+
+##########################################################################################
+29:
+## same_permutation([1,2,3],[2,3,1])
+#. True
+ 
+## same_permutation([1,2,3],[2,3,1,1])
+#. False
+ 
+ 
+ ##########################################################################################
+ 
+30 If you want to know whether two strings are permutations of the same unique characters, just do:
+ 
+set(a) == set(b)
+
+
+31: find and total number of vowels in a file.
+first try to find if file exists
+ so to open a file, process its contents, and make sure to close it, you can simply do:
+ with open("x.txt") as f:
+	data = f.read()
+	using the regexp find if “aeiou” exits.
+
+with open('bala.txt','r') as new:
+    count = 0 
+    for line in new:
+        import re
+        result = re.findall("[aeiou]",line)
+        count += len(result)
+    print(count)
+ 
+
+with open("C:/Users/GowriBala/Desktop/gowri/python.txt","r") as new:
+    count = 0 
+    for line in new:
+        for letter in line:
+		if letter in [aeiouAEIOU]:
+			count+=1
+
+ 
+##########################################################################################
+32:
+in a given list how to find missing logs in this example log6 is missing
+find which log file is missing.
+example:
+temp_list= ['log1','log2','log3','log4','log5','log7,'log8','log9','log10']
+
+answer:
+
+import re
+temp_list= ['log1','log2','log3','log4','log5','log7','log8','log9','log10', 'log13', 'log11']
+
+log_num = []
+missing_file = []
+
+for i in temp_list:
+    test = re.match("log(.*)",i)
+    log_num.append(int(test.group(1)))
+    
+log_num.sort()
+print (log_num)
+
+
+for i in range(log_num[0],log_num[-1]+1):
+    if i not in log_num:
+        missing_file.append("log"+str(i))
+print (missing_file)
+
+
+
+##########################################################################################
+33:Find the list of numbers whose sum is 9 list = [1,3,4,5,7,9,10,2]
+
+34 :Write a regular expression for IP address. 
+
+35:Merge 2 lists removing duplicates.
+Str = [“lklk.lksdj.8 8.8.8 bfd 256.98.1.4 250.250.250.250”] . Print valid IP address from string. 
+
+36:What is lamda function used for ? 
+
+37:Validate a password for length,character :
+2. At least 1 number between [0-9]
+1. At least 1 letter between [A-Z]
+3. At least 1 character from [$#@]
+4. Minimum length of transaction password: 6
+5. Maximum length of transaction password: 12
+
+
+##########################################################################################
+
+38:
+Your program should accept a sequence of comma separated passwords and will check them according to the above criteria. Passwords that match the criteria are to be printed, each separated by a comma.
+
+
+Example
+
+
+If the following passwords are given as input to the program:
+
+
+ABd1234@1,a F1#,2w3E*,2We3345
+
+
+Then, the output of the program should be:
+
+
+ABd1234@1
+
+##########################################################################################
+
+39:1000 ip address and print
+
+40:mac o/p table vlan how many count
+
+41:	Write a function is_cyclic to check if str1 and str2 are cyclic in nature. For ex “hello” and “lohel” are cyclic in nature.
+
+42)	Class questions . Inheritance questions. 
+
+43)	How do you put a break point using pdb 
+
+44:How binary search works-------
+
+45:How to get total number of comments in a file---using regex find the total number of comments.
+
+46:Using data structure find reparative char.------ 
+
+47:What is __init__.py used for?
+
+48: What is the difference between a tuple and a list?
+
+49: Write a program to print all the contents of a file
+
+50: Create a new list that converts the following list of number strings to a list of numbers. num_strings = [‘1',’21’,’53’,’84’,’50’,’66’,’7',’38’,’9']
+
+Answer:
+
+num_strings = ['1','21','53','84','50','66','7','38','9']
+
+new_list = []
+
+for i in num_strings:
+    new_list.append(int(i))
+
+print (new_list)
+
+------------------------------------------------------------------------------------------------------------------
+
+51: Write a program that prints the integers from 1 to 100.
+
+answer:
+
+for i in range (1,101):
+    print (i)
+
+
+##########################################################################################
+
+52: for multiples of three print "Fizz" instead of the number, and for the multiples of five print "Buzz". For numbers which are multiples of both three and five print "FizzBuzz"
+Chat Here
+for i in range(1,101):
+           	if ((i%3 ==0) and (i%5 ==0)):
+                          	print i, "three and Five"
+           	elif (i%3 ==0):
+                          	print i, "three"
+           	elif(i%5 ==0):
+                          	print "fire"
+           	else:
+
+Answer:
+
+for i in range(1,101):
+    if i % 3 == 0 and i % 5 == 0:
+        print ("FizzBuzz")
+    elif i % 5 == 0:
+        print ("buzz")
+    elif i % 3 == 0:
+        print ("Fizz")
+    else:
+        print (i)
+        
+
+53:IP Address regular expression and substitute that with another IP address
+
+54:Join the 2 lists and remove duplicates
+
+55:Generate the ip addresses from given IP/Mask  
+##########################################################################################
+
+56:What is greed and non greedy in regexp greedy give one example for each
+
++ = one ore more
+* = zero ore more
+##########################################################################################
+
+57:give me a regular expression to grep the ip address
+
+58:write a regex to grep ip address.
+
+
+
+    List is a collection which is ordered and changeable. Allows duplicate members.
+    Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
+    Set is a collection which is unordered and unindexed. No duplicate members.
+    Dictionary is a collection which is unordered, changeable and indexed. No duplicate members.
+
