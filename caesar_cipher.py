@@ -7,8 +7,8 @@ def caesar_cipher(string, num):
 
     new_word = ""
     for char in string:
-        idx = (alphabet.index(char) + num) % 26
-        new_word += alphabet[idx]
+        new_idx = (alphabet.index(char) + num) % 26
+        new_word += alphabet[new_idx]
 
     return new_word
 
